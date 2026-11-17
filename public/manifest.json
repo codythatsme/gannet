@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Gannet for Jira",
+  "short_name": "Gannet",
+  "version": "0.1.0",
+  "description": "A fast, keyboard-first issue tracker that uses your Jira Cloud site as its backend.",
+  "minimum_chrome_version": "120",
+  "action": {
+    "default_title": "Open Gannet",
+    "default_icon": { "16": "icons/icon-16.png", "32": "icons/icon-32.png" }
+  },
+  "icons": { "16": "icons/icon-16.png", "32": "icons/icon-32.png", "48": "icons/icon-48.png", "128": "icons/icon-128.png" },
+  "background": { "service_worker": "background.js", "type": "module" },
+  "permissions": ["storage", "declarativeNetRequestWithHostAccess"],
+  "host_permissions": ["https://*.atlassian.net/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://*.atlassian.net/*"],
+      "exclude_matches": ["https://*.atlassian.net/wiki/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "commands": {
+    "_execute_action": { "suggested_key": { "default": "Alt+Shift+G" }, "description": "Open Gannet" }
+  }
+}
